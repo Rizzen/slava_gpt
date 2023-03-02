@@ -32,6 +32,7 @@ public class UpdateHandler: IUpdateHandler
             var botReplyOrMention = isReply || tagMentioned || textMentioned;
 
             var result = await ProcessTextMessage(message, botReplyOrMention);
+            _logger.LogInformation(result.GetType().ToString());
             if (result is ReplyResult rr)
             {
                 await botClient.SendTextMessageAsync(message.Chat.Id, rr.Text, replyToMessageId: message.MessageId, cancellationToken: cancellationToken);
