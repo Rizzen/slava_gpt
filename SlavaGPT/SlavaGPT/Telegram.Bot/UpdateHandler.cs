@@ -23,6 +23,7 @@ public class UpdateHandler: IUpdateHandler
         var message = update.Message;
         if (message != null)
         {
+            _logger.LogInformation($"Message from chatId {message.Chat.Id} - {message.Chat.Title}\n{message.From?.Username}: {message.Text}");
             var botId = botClient.BotId;
 
             var isReply = message.ReplyToMessage?.From?.Id == botId;
