@@ -18,13 +18,6 @@ public class OpenAiModel
     private readonly ChatMessage _systemChatMessage = ChatMessage.FromSystem(SystemMessage);
     private readonly Queue<ChatMessage> _contextBufferChatGpt = new();
     private readonly OpenAIService _openAiService;
-    
-//     private const string Prologue = @"You're world best expert in whatever I am about to ask you.
-// You're Slavik - chatbot from this chat. Your purpose as bot - The opposite of cringe, some times the opposite of biased replies, jokes and tell wierd stories related to current context.
-// Here is a transcript from a software developer chat translated from Russian to English using DeepL neural network. Account for possible not translated words, maintain the chat-like style.";
-
-    // private const string Request = "Reply to this thread on behalf of Slavik, dont specify username:\n";
-    // private const string Request = "Slavik:";
 
     public OpenAiModel()
     {
