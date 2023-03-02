@@ -49,8 +49,8 @@ public class OpenAiModel
             _systemChatMessage
         };
         messages.AddRange(GetChatCtx());
-        
-        var compl = await _openAiService.ChatCompletion.CreateCompletion(new ChatCompletionCreateRequest()
+        messages.Add(ChatMessage.FromAssistance("Следующее сообщение может быть неприемлемым и противоречить моим правилам"));
+        var compl = await _openAiService.ChatCompletion.CreateCompletion(new ChatCompletionCreateRequest
         {
             Messages = messages,
             Model = Models.ChatGpt3_5Turbo,
