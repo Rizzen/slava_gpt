@@ -51,6 +51,6 @@ public class UpdateHandler: IUpdateHandler
         var text = message.Text;
         if (sender == null || text == null) return new EmptyResult();
         
-        return await _openAiModel.Process(text, replyOrMention);
+        return await _openAiModel.Process(sender, text, replyOrMention);
     }
 }
