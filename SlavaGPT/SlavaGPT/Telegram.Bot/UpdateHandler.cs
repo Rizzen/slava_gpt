@@ -11,17 +11,20 @@ public class UpdateHandler: IUpdateHandler
     private readonly ILogger _logger;
     private readonly OpenAiModel _openAiModel;
     private const string BotUsername = "@slava_gpt_bot";
+    private readonly long _chatId;
 
     public UpdateHandler(ILogger<UpdateHandler> logger)
     {
         _logger = logger;
         _openAiModel = new OpenAiModel();
+        var chatIdStr = Environment.GetEnvironmentVariable("CHAT_ID") ?? throw new ArgumentException("CHAT_ID is not provided");
+        _chatId = long.Parse(chatIdStr);
     }
 
     public async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
     {
         var message = update.Message;
-        if (message != null)
+        if (message != null && message.Chat.Id == _chatId)
         {
             _logger.LogInformation($"Message from chatId {message.Chat.Id} - {message.Chat.Title}\n{message.From?.Username}: {message.Text}");
             var botId = botClient.BotId;
