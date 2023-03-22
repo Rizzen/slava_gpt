@@ -3,6 +3,7 @@ using SlavaGPT.Model;
 using Telegram.Bot;
 using Telegram.Bot.Polling;
 using Telegram.Bot.Types;
+using Telegram.Bot.Types.Enums;
 
 namespace SlavaGPT.Telegram.Bot;
 
@@ -38,7 +39,7 @@ public class UpdateHandler: IUpdateHandler
             _logger.LogInformation(result.GetType().ToString());
             if (result is ReplyResult rr)
             {
-                await botClient.SendTextMessageAsync(message.Chat.Id, rr.Text, replyToMessageId: message.MessageId, cancellationToken: cancellationToken);
+                await botClient.SendTextMessageAsync(message.Chat.Id, rr.Text, parseMode: ParseMode.MarkdownV2, replyToMessageId: message.MessageId, cancellationToken: cancellationToken);
             }
         }
     }
