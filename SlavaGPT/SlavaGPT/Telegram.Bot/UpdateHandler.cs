@@ -39,7 +39,13 @@ public class UpdateHandler: IUpdateHandler
             _logger.LogInformation(result.GetType().ToString());
             if (result is ReplyResult rr)
             {
-                await botClient.SendTextMessageAsync(message.Chat.Id, rr.Text, parseMode: ParseMode.MarkdownV2, replyToMessageId: message.MessageId, cancellationToken: cancellationToken);
+                try {
+                    await botClient.SendTextMessageAsync(message.Chat.Id, rr.Text, parseMode: ParseMode.MarkdownV2, replyToMessageId: message.MessageId, cancellationToken: cancellationToken);
+                } catch (Exception ex) {
+                    _logger.LogError(ex, "Failed to send message");
+                    // trying to resend without markdown
+                    await botClient.SendTextMessageAsync(message.Chat.Id, rr.Text, replyToMessageId: message.MessageId, cancellationToken: cancellationToken);
+                }
             }
         }
     }
