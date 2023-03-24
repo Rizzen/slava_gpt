@@ -30,7 +30,7 @@ public class UpdateHandler: IUpdateHandler
             var botId = botClient.BotId;
 
             var isReply = message.ReplyToMessage?.From?.Id == botId;
-            var textMentioned = message.Text?.ToLowerInvariant().Contains("славик") ?? false;
+            var textMentioned = message.Text?.ToLowerInvariant().Contains(_openAiModel.BotName.ToLowerInvariant()) ?? false;
             var tagMentioned = message.Text?.Contains(BotUsername) ?? false;
             var botReplyOrMention = isReply || tagMentioned || textMentioned;
 

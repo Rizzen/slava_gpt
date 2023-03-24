@@ -33,6 +33,11 @@ public class OpenAiModel
         });
     }
 
+    public string BotName
+    {
+        get => _botName;
+    }
+    
     public async Task<ProcessResult> Process(string user, string text, bool replyOrMention = false)
     {
         if (text.Contains("/resetContext"))
